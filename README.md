@@ -32,6 +32,34 @@ To perform a study on Socket Programming
 •	Examples of functions include socket(), bind(), listen(), accept(), connect(), send(), and recv().
 
 ## Server-Side Operations:
+```
+import socket
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+host = socket.gethostname()
+port = 12345
+server_socket.bind((host, port))
+
+server_socket.listen(1)
+print("Server is waiting for connection...")
+
+client_socket, addr = server_socket.accept()
+print("Got connection from", addr)
+
+message = client_socket.recv(1024).decode()
+print("Client:", message)
+
+client_socket.send("Hello Client, message received!".encode())
+
+# Close connection
+client_socket.close()
+server_socket.close()
+
+```
+##output:
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/d70e87e5-e40d-45e1-8d0a-62c2a19d8215" />
+
 
 •	Servers create a socket using socket() and bind it to a specific IP address and port using bind().
 •	They then listen for incoming connections with listen() and accept connections with accept().
@@ -42,6 +70,27 @@ To perform a study on Socket Programming
 
 Clients create a socket using socket() and connect to a server using connect().
 After establishing a connection, clients can send and receive data using send() and recv().
+```
+import socket
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+host = socket.gethostname()
+port = 12345
+
+client_socket.connect((host, port))
+
+client_socket.send("Hello Server!".encode())
+
+response = client_socket.recv(1024).decode()
+print("Server:", response)
+
+client_socket.close()
+
+```
+##output
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/b05dd22d-7f3a-4d81-86fc-9926129cea8a" />
+
 
 ## Use Cases of Socket Programming:
 Socket programming finds applications in various domains, including web development, file transfer protocols, online gaming, and real-time communication. It is the foundation for protocols like HTTP, FTP, and SMTP, which power the internet. Socket programming enables the development of both server and client applications, facilitating the exchange of information between devices in a networked environment.
